@@ -1,8 +1,7 @@
 const http = require('http'); //library to create a server
 const fs = require('fs'); //library to read files
 const path = require('path'); //library to get the path of the file
-
- //get the path of the file
+const _ = require('lodash'); //library to use lodash
 
 //create a server
 const server = http.createServer((req, res) => {
@@ -26,7 +25,7 @@ server.listen(3000, () => {
 });
 
 
-function getRequestedFile(url,res) {
+var getRequestedFile = (url,res)=>{
     var filePath = path.join(__dirname, '/views');
     switch(url) {   
         case '/':
@@ -52,3 +51,4 @@ function getRequestedFile(url,res) {
     }
     return filePath;
 }
+_.once(getRequestedFile);

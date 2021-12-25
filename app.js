@@ -76,7 +76,6 @@ function postSignUp(req,res){
     res.end(JSON.stringify(req.body))
 }
 
-let db_link = "mongodb+srv://kumarav1nash:AFXA3eK9JrmpjUU@cluster0.ioeif.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
 
 mongoose.connect(db_link)
 .then((db)=>{

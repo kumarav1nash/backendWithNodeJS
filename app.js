@@ -1,5 +1,6 @@
 const express = require('express');
-const { rearg } = require('lodash');
+const { rearg, uniqueId } = require('lodash');
+const mongoose = require('mongoose');
 
 
 
@@ -71,5 +72,48 @@ function getSignUp(req,res){
 function postSignUp(req,res){
     // console.log(req.body);
     console.log(req.body.email);
+    createUser(req.body);
     res.end(JSON.stringify(req.body))
 }
+
+let db_link = "mongodb+srv://kumarav1nash:AFXA3eK9JrmpjUU@cluster0.ioeif.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
+
+mongoose.connect(db_link)
+.then((db)=>{
+    console.log("db connected");
+})
+.catch((err)=>{
+    console.log(err);
+});
+
+//user schema
+let userSchema = new mongoose.Schema({
+    email:{
+        type:String,
+        required:true,
+        unique:true
+    },
+    password:{
+        type:String,
+        required:true
+    },
+    gender:{
+        type:String,
+        required :true
+    }
+})
+//user model
+const userModel = mongoose.model('userModel',userSchema)
+
+async function createUser(user){
+    
+    let data = await userModel.create(user).catch(
+       ()=>{
+        console.log("Error occured");
+       }
+    );
+    console.log(data);
+    
+};
+
+

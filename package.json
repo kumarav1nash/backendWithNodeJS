@@ -19,6 +19,7 @@
   "homepage": "https://github.com/kumarav1nash/backendWithNodeJS#readme",
   "dependencies": {
     "express": "^4.17.2",
-    "lodash": "^4.17.21"
+    "lodash": "^4.17.21",
+    "mongoose": "^6.1.3"
   }
 }

@@ -9,7 +9,7 @@ const app = express();
 
 //add middle ware for json
 app.use(express.json());
-
+app.use(express.static(__dirname + '/views'));
 
 
 
@@ -24,6 +24,15 @@ app.listen(3000,()=>{
 //here i will create router to manage all http request in single place
 const userRouter = express.Router();
 app.use("/user",userRouter);
+
+const authRouter = express.Router();
+app.use("/auth",authRouter);
+
+
+authRouter
+.route("/signup")
+.get(getSignUp)
+.post(postSignUp)
 
 userRouter
     .route("/")
@@ -53,4 +62,14 @@ function returnRouteParam(req,res){
     }else{
         res.end("Holla "+JSON.stringify(param))
     }
+}
+
+function getSignUp(req,res){
+    res.sendFile("./views/signup.html",{root:__dirname})
+}
+
+function postSignUp(req,res){
+    // console.log(req.body);
+    console.log(req.body.email);
+    res.end(JSON.stringify(req.body))
 }
